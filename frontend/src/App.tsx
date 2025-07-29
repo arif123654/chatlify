@@ -70,7 +70,16 @@ function App() {
             <div key={msg.id} className="mb-4">
               <p className="font-bold">{msg.user}</p>
               <p>{msg.content}</p>
-              <p className="text-xs text-gray-500">{new Date(msg.timestamp).toDateString()}</p>
+              <p className="text-xs text-gray-500">
+                {(() => {
+                const date = new Date(Number(msg.timestamp));
+                const day = date.toLocaleDateString('en-US', { weekday: 'short' });
+                const dd = String(date.getDate()).padStart(2, '0');
+                const mm = String(date.getMonth() + 1).padStart(2, '0');
+                const yyyy = date.getFullYear();
+                return `${dd}-${mm}-${yyyy}, ${day}`;
+              })()}
+              </p>
             </div>
           ))}
         </div>
